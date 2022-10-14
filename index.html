@@ -1,48 +1,88 @@
-<style>
-body {
-	font-family: Consolas, Arial, 'Heiti TC', 'Microsoft JhengHei', sans-serif;
-	background-color:#e8e7df;
-}
-#info {
-	width: 100%;
-	padding: 10px;
-	text-align: center;
-}
-#hw {
-	padding: 10px;
-	text-align: center;
-}
-</style>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HW1_XmasTree</title>
+  </head>
+  
+  <style>
+    body 
+    {
+      font-family: Consolas, Arial, 'Heiti TC', 'Microsoft JhengHei', sans-serif;
+      background-color:#e8e7df;
+    }
+    .info 
+    {
+      width: 100%;
+      text-align: center;
+    }
+    .hw 
+    {
+      border-collapse: collapse;
+      width: 100%;
+      padding: 5%;
+      text-align: center;
+      border:0;
+      margin-top:3%;
+    }
+    .hw img
+    {
+      width:400px;
+      height:400px;
+    }
 
-<body>
+  @media screen and (max-width:1000px)
+  {
 
-<div id="info">
-<font color="#49535e";font size="8em">WEB 3D</font><br>
-111_1<br><br>
-410614117 黃立薇<br><br>
-E-mail<a href="mailto:u10614117@ms.ttu.edu.tw">
-<font color="#404040">u10614117@ms.ttu.edu.tw</font></a>
-<br><br>
-github頁面<a href="https://github.com/pupss940363/W3D_HW">
-<font color="#404040">README</font></a>
-</div>
+    .hw 
+    {
+      border-collapse: collapse;
+      padding: 0;
+    }  
+    .hw td
+    {
+      display: block; /* 一定要下！ */
+      padding: 0;
+    }
+    .hw img
+    {
+      width:200px;
+      height:200px;
+    }
 
-<div id="hw">
-	<table border="0" style="margin-left: auto; margin-right: auto;margin-top:1%">
+  }
+  </style>
 
-	   <tr align="center">
-			<td width="33%"><img src="https://imgur.com/yYXF2z7.gif" width="400px" height="400px"/></td>
-<td width="33%"><img width="400px" height="400px"/></td>
-<td width="33%"><img width="400px" height="400px"/></td>
-		</tr>
-	    
-<tr align="center">
-			<td><a href="HW1_XmasTree.html"><font color="#404040">HW1_XmasTree.html</font></a>
-<br>Xmas Light Bulb</td>
+  <body>
+    <div class="info">
+      <font color="#49535e";font size="8em">WEB 3D</font><br>
+      111_1<br><br>
+      410614117 黃立薇<br><br>
+      E-mail<a href="mailto:u10614117@ms.ttu.edu.tw">
+      <font color="#404040">u10614117@ms.ttu.edu.tw</font></a>
+      <br><br>
+      github頁面<a href="https://github.com/pupss940363/W3D_HW">
+      <font color="#404040">README</font></a>
+    </div>
+    
+    <table class="hw" >
+      <tr align="center">
+          <td><img src="https://imgur.com/yYXF2z7.gif">
+            <br>
+            <a href="HW1_XmasTree.html"><font color="#404040">HW1_XmasTree.html</font></a>
+            <br>Xmas Light Bulb
+          </td>
+        
+          <td><img>           
+            <br><br><br>
+          </td>
+        
+          <td><img>           
+            <br><br><br>
+          </td>
+          
+      </tr>
 
-<td><a href=""></a><br></td>
-
-<td><a href=""></a><br></td>
-		</tr>
-
-	</table>
+    </table>
+  </body>
+</html>

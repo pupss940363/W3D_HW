@@ -12,3 +12,14 @@ HW1_XmasTree：
 
 再按一下關燈。
  
+ <br><br>
+ 
+HW2_VectorProduct：
+
+左邊輸入兩向量的xyz，
+
+經檢查所有向量產生完畢後，
+
+使用Threejs運算，
+
+輸出在右邊的表單。

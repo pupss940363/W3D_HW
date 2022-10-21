@@ -1,0 +1,166 @@
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HW2_Vector Product</title>
+		</head>
+<script src="https://threejs.org/build/three.min.js">
+</script>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+
+<script language="javascript">
+	$(document).ready(function() {
+    $("#vx,#vy,#vz,#wx,#wy,#wz").keyup(function(ev){
+			var count = 0;
+      		if(!$("#vx").val()=="" || !$("#vx").val()==null){
+						 count++;
+					}
+					if(!$("#vy").val()=="" || !$("#vy").val()==null){
+ 						 count++;
+					}
+					if(!$("#vz").val()=="" || !$("#vz").val()==null){
+						 count++;
+					}
+					if(!$("#wx").val()=="" || !$("#wx").val()==null){
+						 count++;
+					}
+					if(!$("#wy").val()=="" || !$("#wy").val()==null){
+						 count++;
+					}
+					if(!$("#wz").val()=="" || !$("#wz").val()==null){
+						 count++;
+					}
+					if(count == 6){
+						calc();
+					}
+    });
+});
+	
+	var calc = function()
+{	
+	var vx = document.getElementsByName
+	('v.x')[0]
+	var vy = document.getElementsByName
+	('v.y')[0]
+	var vz = document.getElementsByName
+	('v.z')[0]
+	
+	var wx = document.getElementsByName
+	('w.x')[0]
+	var wy = document.getElementsByName
+	('w.y')[0]
+	var wz = document.getElementsByName
+	('w.z')[0]
+	// 獲取輸入框中的資料
+	vx  =vx.value
+	vx = parseFloat(vx)
+	vy  =vy.value
+	vy = parseFloat(vy)
+	vz  =vz.value
+	vz = parseFloat(vz)
+	
+	wx  =wx.value
+	wx = parseFloat(wx)
+	wy  =wy.value
+	wy = parseFloat(wy)
+	wz  =wz.value
+	wz = parseFloat(wz)
+
+	
+var v = new THREE.Vector3(vx,vy,vz);
+var w = new THREE.Vector3 (wx,wy,wz);
+	
+let dotvalue = v.dot(w);
+document.getElementById('dot').value = dotvalue;
+	
+let crossvalue = v.cross(w);	
+document.getElementById('crossx').value = crossvalue.x;
+document.getElementById('crossy').value = crossvalue.y;
+document.getElementById('crossz').value = crossvalue.z;
+
+}
+	
+</script>
+
+<style>
+	.header{
+		width: 100%;
+		height: 20%;
+		line-height:80px;
+		background-color:  #dbd0c1;
+		position: relative;
+		text-align:center;
+		font-size:40px;
+		font-family:Consolas;
+		color:#6A6B83;
+	}
+	
+	.containerOne{
+		font-family:consolas;
+		font-size:20px;
+		text-align:center;
+		padding:4%;
+		/*margin-top:4%;*/
+		margin-left:20%;
+		background-color:#dbd0c1;
+		width:15%;
+		height:10%;
+		border-radius:20% 0 20% 0;
+		float:left;
+	}
+		.containerTwo{
+		font-family:consolas;
+		font-size:20px;
+		text-align:center;
+		padding-top:4%;
+		padding-bottom:4%;
+		padding-right:4%;
+		padding-left:4%;
+		margin-left:60%;
+		margin-bottom:4%;
+		width:15%;
+		height:10%;
+		background-color:#dbd0c1;
+		border-radius:20% 0 20% 0;
+	
+	}
+
+	input{
+		font-size:20px;
+	}
+</style>
+<body>
+
+<h1><div class="header">
+HW2_Vector Product
+</div></h1>
+<div class="containerOne">
+<form>
+	<label>vector v</label><br>
+	<input type="text" size="4" id="vx" name="v.x" placeholder="v.x" ><br><br>
+	<input type="text" size="4" id="vy" name="v.y" placeholder="v.y" ><br><br>
+	<input type="text" size="4" id="vz" name="v.z" placeholder="v.z" ><br><br>
+	<br><br><br>
+	
+	<label>vector w</label><br>
+	<input type="text" size="4" id="wx" name="w.x"placeholder="w.x" ><br><br>
+	<input type="text" size="4" id="wy" name="w.y"placeholder="w.y"><br><br>
+	<input type="text" size="4" id="wz" name="w.z"placeholder="w.z" onkeyup="ckvalue(this)"><br><br>
+</form>
+</div>
+
+<div id="calc" class="containerTwo">
+<form>
+
+<label for="dot">v．w</label><br>
+<input type="text" size="4" id="dot" name="dot"><br><br><br><br><br><br>
+<label for="cross">v×w</label><br>
+x<br> </label><input size="4" id="crossx" name="x"><br><br>
+y<br> <input size="4" id="crossy" name="y"><br><br>
+z<br> <input size="4" id="crossz" name="z"><br><br>
+</form>
+</div>
+</body>
+	
+</html>

@@ -1,0 +1,402 @@
+<html>
+<body>
+      平面設計圖<a href="https://imgur.com/a/m9A5YLB">
+      <font color="#404040">README</font></a>
+<div id="info">
+</div>
+<script src="https://threejs.org/build/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js">
+</script>
+<script src="http://jyunming-chen.github.io/tutsplus/js/KeyboardState.js">
+</script>
+
+<script type="module">
+import * as THREE from 'https://cdn.skypack.dev/three@0.136';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136/examples/jsm/controls/OrbitControls.js';
+  
+var renderer, scene, camera;
+var texture, mesh;
+var keyboard = new KeyboardState();
+var useMipmap = false;
+var pointLight;
+
+init();
+animate();
+
+function init() {
+
+  scene = new THREE.Scene();
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x888888);
+  document.body.appendChild(renderer.domElement);
+
+
+  /*camra*/
+  camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
+  camera.position.y = 80
+  camera.position.z = 150;
+  
+  
+  document.body.appendChild(renderer.domElement);
+
+
+ ////////////////////////////////////////////////////////////////
+
+/*grid*/
+  //  var gridXZ = new THREE.GridHelper(200, 40, 'red', 'white');
+  //scene.add(gridXZ);  
+  
+/*wall*/
+        /*wallLeft*/
+        var wallLeft = new THREE.Mesh( new THREE.BoxGeometry(185, 25, 5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            wallLeft.position.set(-2.5, 13, -77.5);
+        scene.add(wallLeft);
+
+        /*wallRight*/
+        var wallRight = new THREE.Mesh( new THREE.BoxGeometry(185, 25, 5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            wallRight.position.set(-2.5, 13, 77.5);
+        scene.add(wallRight);
+
+        /*wallTop*/
+        var wallTop = new THREE.Mesh( new THREE.BoxGeometry(5,25,155), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            wallTop.position.set(87.5, 13, 0);
+        scene.add(wallTop);
+
+
+        /*wallBottomLeft*/
+        var wallBottomLeft = new THREE.Mesh( new THREE.BoxGeometry(5,25,61), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            wallBottomLeft.position.set(-92.5, 13,-44.5);
+        scene.add(wallBottomLeft);
+
+        /*wallBottomRight*/
+        var wallBottomRight = new THREE.Mesh( new THREE.BoxGeometry(5,25,61), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            wallBottomRight.position.set(-92.5, 13,44.5);
+        scene.add(wallBottomRight);
+
+        /*box1,16,17*/
+        var box1 = new THREE.Mesh( new THREE.BoxGeometry(5,25,24.5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box1.position.set(32.5, 13, -62.8);
+        scene.add(box1);
+
+        /*box2*/
+        var box2 = new THREE.Mesh( new THREE.BoxGeometry(70,25,15), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box2.position.set(-55, 13, -67.5);
+        scene.add(box2);
+
+
+        /*box3*/
+        var box3 = new THREE.Mesh( new THREE.BoxGeometry(5,25,10), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box3.position.set(-37.5, 13, -55.3);
+        scene.add(box3);
+
+        /*box4*/
+        var box4 = new THREE.Mesh( new THREE.BoxGeometry(35,25,45), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box4.position.set(68, 13, 13);
+        scene.add(box4);
+
+        /*box5*/
+        var box5 = new THREE.Mesh( new THREE.BoxGeometry(5,25,65), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box5.position.set(32.5, 13, 2.5);
+        scene.add(box5);
+
+        /*box6*/
+        var box6 = new THREE.Mesh( new THREE.BoxGeometry(5,25,50), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box6.position.set(27.5, 13, 10.1);
+        scene.add(box6);
+
+        /*box7*/
+        var box7 = new THREE.Mesh( new THREE.BoxGeometry(5,25,5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box7.position.set(22.5, 13, -12.4);
+        scene.add(box7);
+
+        /*box8*/
+        var box8 = new THREE.Mesh( new THREE.BoxGeometry(10,25,20), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box8.position.set(20, 13, 25.1);
+        scene.add(box8);
+
+        /*box9*/
+        var box9 = new THREE.Mesh( new THREE.BoxGeometry(45,25,5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box9.position.set(-27.5, 13, -12.4);
+        scene.add(box9);
+
+        /*box10*/
+        var box10 = new THREE.Mesh( new THREE.BoxGeometry(10,25,20), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box10.position.set(-10, 13, 25.1);
+        scene.add(box10);
+
+
+        /*box11*/
+        var box11 = new THREE.Mesh( new THREE.BoxGeometry(5,25,15), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box11.position.set(-37.5, 13, -22.3);
+        scene.add(box11);
+
+
+        /*box12*/
+        var box12 = new THREE.Mesh( new THREE.BoxGeometry(5,25,25), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box12.position.set(-37.5, 13, 2.5);
+        scene.add(box12);
+
+         /*box13*/
+        var box13 = new THREE.Mesh( new THREE.BoxGeometry(35,25,5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box13.position.set(-32.5, 13, 17.5);
+        scene.add(box13); 
+
+
+        /*box14*/
+        var box14 = new THREE.Mesh( new THREE.BoxGeometry(20,25,5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box14.position.set(-85, 13, -12.4);
+        scene.add(box14);
+
+
+        /*box15*/
+        var box15 = new THREE.Mesh( new THREE.BoxGeometry(20,25,5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box15.position.set(-85, 13, 16.5);
+        scene.add(box15);
+
+        /*box1,16,17*/
+        var box16 = new THREE.Mesh( new THREE.BoxGeometry(5,25,24.5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box16.position.set(32.5, 13, 62.8);
+        scene.add(box16);
+
+        /*box1,16,17*/
+        var box17 = new THREE.Mesh( new THREE.BoxGeometry(5,25,24.5), new THREE.MeshPhongMaterial({color: 0xe8e6e6}));
+            box17.position.set(-37.5, 13, 62.8);
+        scene.add(box17);
+/*drawing*/
+       /*drawing1*/
+        var drawing1 = new THREE.TextureLoader().load("https://i.imgur.com/W4acVWP.jpg");
+        var drawing1 = new THREE.Mesh(new THREE.PlaneGeometry(10,15), new THREE.MeshBasicMaterial({map: drawing1}));
+        drawing1.position.set(-40.5, 16, 2.5);
+        drawing1.rotation.y = -Math.PI / 2;
+        
+        /*drawing2*/
+        var drawing2 = new THREE.TextureLoader().load("https://i.imgur.com/LnqGE3e.jpg");
+        var drawing2 = new THREE.Mesh(new THREE.PlaneGeometry(20,12), new THREE.MeshBasicMaterial({map: drawing2}));
+        drawing2.position.set(-65.5, 14, 74.5);
+        drawing2.rotation.y = Math.PI;
+  
+        /*drawing3*/
+        var drawing3 = new THREE.TextureLoader().load("https://i.imgur.com/XbQRuMP.jpg");
+        var drawing3 = new THREE.Mesh(new THREE.PlaneGeometry(20,12), new THREE.MeshBasicMaterial({map: drawing3}));
+        drawing3.position.set(5, 14, -74.5);
+  
+        /*drawing4*/
+        var drawing4 = new THREE.TextureLoader().load("https://i.imgur.com/RI0uAP2.jpg");
+        var drawing4 = new THREE.Mesh(new THREE.PlaneGeometry(20,15), new THREE.MeshBasicMaterial({map: drawing4}));
+        drawing4.position.set(-60, 14, -59.5);
+  
+        /*drawing5*/
+        var drawing5 = new THREE.TextureLoader().load("https://i.imgur.com/8yMKlEf.jpg");
+        var drawing5 = new THREE.Mesh(new THREE.PlaneGeometry(8,12), new THREE.MeshBasicMaterial({map: drawing5}));
+        drawing5.position.set(-80, 14, -59.5);
+  
+        /*drawing6*/
+        var drawing6 = new THREE.TextureLoader().load("https://i.imgur.com/xTVjP60.jpg");
+        var drawing6 = new THREE.Mesh(new THREE.PlaneGeometry(20,12), new THREE.MeshBasicMaterial({map: drawing6}));
+        drawing6.position.set(60, 14, 74.5);
+        drawing6.rotation.y = Math.PI;
+  
+  
+       /*drawing7*/
+        var drawing7 = new THREE.TextureLoader().load("https://i.imgur.com/5q5G6sy.png");
+        var drawing7 = new THREE.Mesh(new THREE.PlaneGeometry(20,16), new THREE.MeshBasicMaterial({map: drawing7}));
+        drawing7.position.set(10, 14, 74.5);
+        drawing7.rotation.y = Math.PI;
+  
+  
+        /*drawing8*/
+        var drawing8 = new THREE.TextureLoader().load("https://i.imgur.com/yYRrcep.png");
+        var drawing8 = new THREE.Mesh(new THREE.PlaneGeometry(28,20), new THREE.MeshBasicMaterial({map: drawing8}));
+        drawing8.position.set(84.6, 14, -40.5);
+        drawing8.rotation.y = -Math.PI / 2;
+  
+        
+        /*drawing9*/
+        var drawing9 = new THREE.TextureLoader().load("https://i.imgur.com/50xA8xm.png");
+        var drawing9 = new THREE.Mesh(new THREE.PlaneGeometry(10,6), new THREE.MeshBasicMaterial({map: drawing9}));
+        drawing9.position.set(-15, 18, 74.5);
+        drawing9.rotation.y = Math.PI;
+  
+  
+        /*drawing10*/
+        var drawing10 = new THREE.TextureLoader().load("https://i.imgur.com/zAzl2Sh.png");
+        var drawing10 = new THREE.Mesh(new THREE.PlaneGeometry(10,6), new THREE.MeshBasicMaterial({map: drawing10}));
+        drawing10.position.set(-25, 10, 74.5);
+        drawing10.rotation.y = Math.PI;
+  
+        /*drawing11*/
+        var drawing11 = new THREE.TextureLoader().load("https://i.imgur.com/rnVfilO.jpg");
+        var drawing11 = new THREE.Mesh(new THREE.PlaneGeometry(10,15), new THREE.MeshBasicMaterial({map: drawing11}));
+        drawing11.position.set(-40.5, 14, 62.5);
+        drawing11.rotation.y = -Math.PI / 2;
+        
+        /*drawing12*/
+        var drawing12 = new THREE.TextureLoader().load("https://i.imgur.com/80FSrQV.jpg");
+        var drawing12 = new THREE.Mesh(new THREE.PlaneGeometry(10,15), new THREE.MeshBasicMaterial({map: drawing12}));
+        drawing12.position.set(24.8,14,3);
+        drawing12.rotation.y = -Math.PI / 2;
+  
+  
+       /*drawing13*/
+        var drawing13 = new THREE.TextureLoader().load("https://i.imgur.com/FVkyHcm.jpg");
+        var drawing13 = new THREE.Mesh(new THREE.PlaneGeometry(28,20), new THREE.MeshBasicMaterial({map: drawing13}));
+        drawing13.position.set(-89.6, 14, 44.5);
+        drawing13.rotation.y = Math.PI / 2;
+  
+  
+        /*drawing14*/
+        var drawing14 = new THREE.TextureLoader().load("https://i.imgur.com/ZxOUf9Y.jpg");
+        var drawing14 = new THREE.Mesh(new THREE.PlaneGeometry(15,20), new THREE.MeshBasicMaterial({map: drawing14}));
+        drawing14.position.set(-30, 14, 20.2);
+
+  
+  
+        /*drawing15*/
+        var drawing15 = new THREE.TextureLoader().load("https://i.imgur.com/gmeFi6A.jpg");
+        var drawing15 = new THREE.Mesh(new THREE.PlaneGeometry(10,22), new THREE.MeshBasicMaterial({map: drawing15}));
+        drawing15.position.set(-34.7, 14, 2.5);
+        drawing15.rotation.y = Math.PI / 2;
+  
+                scene.add(drawing1,drawing2,drawing3,drawing4,drawing5,drawing6,drawing7,drawing8,drawing9,drawing10,drawing11,drawing12,drawing13,drawing14,drawing15);
+  
+  
+  
+  
+/*chair*/
+        var chairSet = buildChair ();
+        scene.add (chairSet);  
+      function buildChair () {
+       var chairGroup = new THREE.Group();  
+       var chair1Geom = new THREE.BoxGeometry (5,5,20);
+       var chair2Geom = new THREE.BoxGeometry (20,5,5);
+       var chair3Geom = new THREE.BoxGeometry (20,5,20);
+       var materials = [];
+
+       var loader = new THREE.TextureLoader();
+       var leatherTex = loader.load("https://i.imgur.com/u3cvgJL.jpg");
+       let mPx = new THREE.MeshBasicMaterial({map:leatherTex});
+       let mNx = new THREE.MeshBasicMaterial({map:leatherTex});
+       let mPy = new THREE.MeshBasicMaterial({map:leatherTex});
+       let mNy = new THREE.MeshBasicMaterial({map:leatherTex});
+       let mPz = new THREE.MeshBasicMaterial({map:leatherTex});
+       let mNz = new THREE.MeshBasicMaterial({map:leatherTex});
+         materials.push (mPx, mNx, mPy, mNy, mPz, mNz);
+       var chair1 = new THREE.Mesh (chair1Geom, materials);
+       var chair2 = new THREE.Mesh (chair2Geom, materials);
+       var chair3 = new THREE.Mesh (chair2Geom, materials);
+       var chair4 = new THREE.Mesh (chair3Geom, materials);
+      chair1.position.set(60, 3.5, -40);
+      chair2.position.set(60, 3.5, 57.5);
+      chair3.position.set(-65, 3.5, 51.5);
+      chair4.position.set(-65, 3.5, -40.5);
+        
+       chairGroup.add (chair1,chair2,chair3,chair4);
+        
+       return chairGroup;
+      }
+  
+  
+/*light*/
+        var ambLight = new THREE.AmbientLight(0x404040,2);
+        scene.add(ambLight);
+
+        /*pointLight1*/
+        var pointLight1 = new THREE.PointLight (0xf5e4c4,0.8,100);
+        pointLight1.position.set (60,30,-40);
+        scene.add (pointLight1/*, new THREE.PointLightHelper (pointLight1, 4)*/);
+
+        /*pointLight2*/
+        var pointLight2 = new THREE.PointLight (0xf5e4c4,0.3,100);
+        pointLight2.position.set (40,30,10);
+        scene.add (pointLight2/*, new THREE.PointLightHelper (pointLight2, 4)*/);
+
+        /*pointLight3*/
+        var pointLight3 = new THREE.PointLight (0xf5e4c4,0.6,100);
+        pointLight3.position.set (60,30,50);
+        scene.add (pointLight3/*, new THREE.PointLightHelper (pointLight3, 4)*/);
+
+        /*pointLight4*/
+        var pointLight4 = new THREE.PointLight (0xf5e4c4,0.6,100);
+        pointLight4.position.set (0,30,-50);
+        scene.add (pointLight4/*, new THREE.PointLightHelper (pointLight4, 4)*/);
+
+        /*pointLight5*/
+        var pointLight5 = new THREE.PointLight (0xf5e4c4,0.6,100);
+        pointLight5.position.set (0,30,0);
+        scene.add (pointLight5/*, new THREE.PointLightHelper (pointLight5, 4)*/);
+
+        /*pointLight6*/
+        var pointLight6 = new THREE.PointLight (0xf5e4c4,0.6,100);
+        pointLight6.position.set (0,30,50);
+        scene.add (pointLight6/*, new THREE.PointLightHelper (pointLight6, 4)*/);
+
+        /*pointLight7*/
+        var pointLight7 = new THREE.PointLight (0xf5e4c4,0.8,100);
+        pointLight7.position.set (-65,30,-30);
+        scene.add (pointLight7/*, new THREE.PointLightHelper (pointLight7, 4)*/);
+
+        /*pointLight8*/
+        var pointLight8 = new THREE.PointLight (0xf5e4c4,0,100);
+        pointLight8.position.set (-65,30,0);
+        scene.add (pointLight8/*, new THREE.PointLightHelper (pointLight8, 4)*/);
+
+        /*pointLight8*/
+        var pointLight8 = new THREE.PointLight (0xf5e4c4,0.6,100);
+        pointLight8.position.set (-65,30,50);
+        scene.add (pointLight8/*, new THREE.PointLightHelper (pointLight8, 4)*/);
+  
+  
+/*spotLight*/ 
+  
+
+        const spotLight = new THREE.SpotLight( 0xffffff,2,50,Math.PI / 6,0.5);
+        spotLight.position.set(-50, 33, 3);
+        spotLight.target = drawing1;
+        scene.add (spotLight/*, new THREE.SpotLightHelper (spotLight, 4)*/);
+        var lampGroup = new THREE.Group();
+        var lamp = new THREE.Mesh (new THREE.CylinderGeometry (1,1,5,5), new THREE.MeshBasicMaterial( {color: 0x595959}));
+        lamp.rotation.x = Math.PI / 2.5;
+        lampGroup.add (lamp/*, new THREE.AxesHelper(60)*/);
+        scene.add (lampGroup);
+        lampGroup.position.copy (spotLight.position);
+        lampGroup.lookAt (drawing1.position);
+  
+/*floor texture*/
+        let loader = new THREE.TextureLoader()
+        loader.crossOrigin = '';
+
+        texture = loader.load('https://i.imgur.com/70w1RSd.jpg');
+
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(2, 2);
+
+        mesh = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), 
+          new THREE.MeshBasicMaterial({map: texture}))
+        mesh.rotation.x = -Math.PI / 2;
+        scene.add(mesh);
+  
+
+let controls = new OrbitControls(camera, renderer.domElement);
+  
+
+}
+
+function animate() {
+
+  requestAnimationFrame(animate);
+  render();
+
+}
+
+function render() {
+
+  renderer.render(scene, camera);
+
+}
+
+
+
+</script>

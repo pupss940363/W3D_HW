@@ -1,0 +1,658 @@
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HW4_Patio Design</title>
+	</head>
+
+<script src="https://threejs.org/build/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<style>
+
+
+	.header
+  {
+		width: 100%;
+		height: 10%;
+		line-height:60px;
+		background-color:  #dbd0c1;
+		position: relative;
+		text-align:center;
+		font-size:40px;
+		font-family:Consolas;
+		color:#6A6B83;
+	}
+  
+
+  .aTable
+  {
+    background-image: url('https://imgur.com/gYrwk2s.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-left:30px;
+  }
+
+
+  .aChair
+  {
+    background-image: url('https://i.imgur.com/TfRhHos.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-left:90px;
+  }
+
+  input[id="aTable"],[id="aChair"]
+  {
+  position: absolute;
+  z-index: 10;
+  outline: none;
+  }
+  
+  input[id="aTable"],[id="aChair"]:active + label, input:checked + label 
+  {
+    filter: none;
+  }
+
+  .furniture
+  {
+    padding-top:100px;
+  }
+  
+label {  
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width:100px;
+  height:100px;
+  filter: grayscale(100%) opacity(50%);
+  transition: all .5s ease;
+}
+
+label:hover {
+  box-shadow: 0 0 15px #777;
+  border-radius: 30px;
+}
+
+
+input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #6A6B83;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+input[type='checkbox']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #6A6B83;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+   
+  .option
+  {
+		width:30vw;
+    float:left;
+    padding-left:30px;
+    padding-top:10px;
+    padding-right:10px;
+    font-size:20px;
+		font-family:Consolas;
+		color:#6A6B83;
+	}
+  
+  #container 
+  {
+    width: 30vw;
+    height: 30vw;
+    float: left;
+    margin-left:24%;
+  }
+
+p 
+  {
+    text-align: justify;
+  }
+  
+  
+
+
+
+#clearing,#saving,#restoring 
+  {	
+    padding: 8px 8px;
+    font: 13px consolas;
+    font-size:20px;
+    text-decoration: none;
+    text-align: center;
+    margin: 2px;
+	  cursor: pointer;
+	
+	
+    color: #6A6B83;
+    background: #dbd0c1;
+    border-radius: 8px;
+    transition: .3s ease-in-out;
+    flex-direction: column;
+  }
+
+#clearing:hover,#saving:hover,#restoring:hover
+  {
+    border-radius: 40px;
+  }
+  
+/*
+.button-label {
+  width:100px;
+  height:20px;
+  padding-bottom:4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: all .5s ease;
+}
+  .button-label:hover {
+  box-shadow: 0 0 15px #777;
+  border-radius: 30px;
+}
+  */
+  
+</style>
+  
+  
+  <body style="background-color:#e0e0e0;">
+    <h1>
+      <div class="header">
+        HW4_Patio Design
+      </div>
+    </h1>
+    
+
+    <div id="container"></div>
+
+   
+         <div  class="furniture">
+            <input type=radio class='furniture' id='aTable' name='f' value='table' style='margin-left:35px'checked>
+            <label for="aTable" class="aTable" ></label>
+      
+            <input type=radio class='furniture' id='aChair' name='f' value='chair' style='margin-left:95px'>
+            <label for="aChair" class="aChair"></label><br><br>
+      </div>
+      
+    
+    
+      <div  class="option">
+         <!--<label class="button-label" for="placing"> -->  
+      <input type=radio class='gclass' id='placing' name='g' value='place' checked> Place
+         <!-- </label>-->
+        
+         <!--<label class="button-label" for="moving"> -->  
+      <input type=radio class='gclass' id='moving' name='g' value='move' > Move
+         <!--</label>-->
+        
+         <!--<label class="button-label" for="deleting"> -->  
+      <input type=radio class='gclass'  id='deleting' name='g' value='delete'> Delete   <!--</label>-->
+      
+      <br><br>
+      
+       <input type="checkbox" id="lighting" name="light" style='margin-left:5px' checked>&nbsp;Light
+
+        <br><br>
+      <a class="access" id='saving' value='save' style='margin-left:29px'>Save</a>
+      <a class="access" id='restoring' value='restore'style='margin-left:5px'>Restore</a>
+      <a class="access" id='clearing' value='clear'>Clear</a>
+
+
+     
+      
+      <br><br><p id='debugMsg'>
+      </p>
+    </div>
+    
+
+    
+  </body>
+      
+<script>
+  
+$('.gclass').click(function() 
+  {
+    if ($(this).val() === 'place')
+      {
+     
+        placing = true;
+        moving = false;
+        deleting = false;
+        
+      }else if ($(this).val() === 'move')
+      {
+         placing = false;
+         moving = true;
+         deleting = false;
+        
+      }else if($(this).val() === 'delete')
+      {
+         placing = false;
+         moving = false;
+         deleting = true;
+      }    
+  }
+);
+
+
+$('.furniture').click(function() 
+  {
+    if ($(this).val() === 'table')
+      {
+        aTable = true;
+        aChair = false;
+
+      }else if ($(this).val() === 'chair')
+      {
+        aTable = false;
+        aChair = true;    
+      }
+  }
+);
+
+var scene, renderer, camera;
+var plane;
+var puck;
+var table_puck;
+var chair_puck;
+var mouse = new THREE.Vector2();
+var raycaster = new THREE.Raycaster();
+var placing = true;
+var moving;
+var deleting;
+var aTable = true;
+var aChair;
+var pucks = [];
+var thePuck;
+var controls; // move to global, for changing controls
+var pucksType = [];
+
+
+var save = document.getElementById('saving');
+var restore = document.getElementById('restoring');
+var clear = document.getElementById('clearing');
+var checkbox = document.getElementById('lighting');
+    checkbox.checked == false;
+
+
+
+
+//access
+save.onclick = function() 
+{
+  // pucks --> puckRecs
+  var recs = [];
+  for (let i = 0; i < pucks.length; i++) 
+  {
+    var rec = {};
+    
+    rec.name = pucks[i].name;
+    rec.x = pucks[i].position.x.toFixed(2);
+    rec.z = pucks[i].position.z.toFixed(2);
+    recs.push(rec);
+  }
+
+  // puckRecs --> JSON.stringify --> localStorage
+  var recLog = JSON.stringify(recs);
+  localStorage.setItem('puckLog', recLog);
+  var recType = JSON.stringify(pucksType);
+  localStorage.setItem('puckTypeLog', recType);
+};
+
+
+
+restore.onclick = function() 
+{ 
+
+  // localStorage --> JSON.parse --> puckRecs
+	var parseLog = JSON.parse(localStorage.getItem('puckLog'));
+  var parseTypeLog = JSON.parse(localStorage.getItem('puckTypeLog'));
+  for (let i = 0; i < parseLog.length; i++) 
+  {
+    var newPuck;
+    if(parseTypeLog[i] === 1)
+    {
+      newPuck =  table_puck.clone();
+    }
+    if(parseTypeLog[i] === 2)
+    {
+      newPuck =  chair_puck.clone();
+    }
+    newPuck.position.set(parseLog[i].x, 9, parseLog[i].z);
+    scene.add(newPuck);
+    pucks.push (newPuck);
+  } 
+};
+
+
+
+
+clear.onclick = function() 
+{
+  pucks.forEach
+  (
+    function(puck)
+    {
+      puck.removeFromParent();
+    }
+  )
+  /*
+  if(aTable === true)
+  {
+      table_puck.forEach
+    ( 
+      function(table_puck) 
+      {
+        table_puck.removeFromParent();
+      }   
+    )
+  }else if(aChair === true)
+  {
+    chair_puck.forEach
+    ( 
+      function(chair_puck) 
+      {
+        chair_puck.removeFromParent();
+      }   
+    )
+  }*/
+  
+  pucks = [];
+};
+
+
+
+init();
+animate();
+  
+           
+
+function init() 
+{
+  renderer = new THREE.WebGLRenderer
+  (
+    {
+      antialias: true
+    }
+  );
+  
+  
+  
+  //container
+  var ww = $('#container').innerWidth();
+  var hh = $('#container').innerHeight();
+  renderer.setSize(ww, hh);
+  renderer.setClearColor(0xe0e0e0);
+  $('#container').append(renderer.domElement);
+
+  scene = new THREE.Scene();
+  
+  //camera
+  camera = new THREE.PerspectiveCamera(45, ww / hh, 1, 10000);
+  camera.position.set(200, 200, 200);
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+
+  //furniture
+  var table_geom = new THREE.CylinderGeometry(30, 25, 30, 32);
+  var table_mat = new THREE.MeshPhongMaterial();
+  table_puck = new THREE.Mesh(table_geom, table_mat);
+ 
+  // var table_geom = new THREE.BoxGeometry(4, 20, 4);
+  // var table_mat = new THREE.MeshPhongMaterial();
+  // table_feet = new THREE.Mesh(table_geom, table_mat);
+
+  
+  var chair_geom = new THREE.CylinderGeometry(10, 5, 15, 32);
+  var chair_mat = new THREE.MeshPhongMaterial();
+  chair_puck = new THREE.Mesh(chair_geom, chair_mat);
+
+  
+  var cyl_geom = new THREE.CylinderGeometry(10, 10, 20, 32);
+  var cyl_mat = new THREE.MeshPhongMaterial();
+  puck = new THREE.Mesh(cyl_geom, cyl_mat);
+
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+  //grid
+  /*var gridXZ = new THREE.GridHelper(200, 20, 'red', 'white');
+  scene.add(gridXZ);*/
+
+  
+  /*floor texture*/
+
+  var loader = new THREE.TextureLoader();
+  var floorGroup = new THREE.Group();
+  
+  var grassMap = loader.load ('https://i.imgur.com/fYbVZ17.jpg');
+  var grassAlpha = loader.load ('https://i.imgur.com/YCfwf3k.png');
+  grassFloor = new THREE.Mesh 
+  (new THREE.PlaneGeometry (200,200), new THREE.MeshPhongMaterial
+    (
+      {
+        map: grassMap,
+        transparent:true, 
+        alphaMap: grassAlpha
+      }
+    )
+  );
+
+  var stoneMap = loader.load ('https://i.imgur.com/zlz3sjq.png');
+  var stoneAlpha = loader.load ('https://i.imgur.com/Fgliinh.png');
+  stoneFloor = new THREE.Mesh 
+  (new THREE.PlaneGeometry (200,200), new THREE.MeshPhongMaterial
+   (
+    {
+      map: stoneMap, 
+     transparent:true, 
+     alphaMap: stoneAlpha
+    }
+   )
+  );
+  
+  var stoneMap2 = loader.load ('https://i.imgur.com/zjxRpbP.jpg');
+  var stoneAlpha2 = loader.load ('https://i.imgur.com/Tt251oE.png');
+  stoneFloor2 = new THREE.Mesh 
+  (new THREE.PlaneGeometry (200,200), new THREE.MeshPhongMaterial
+   (
+    {
+    map: stoneMap2, 
+     transparent:true, 
+     alphaMap: stoneAlpha2
+    }
+   )
+  );
+  
+  floorGroup.add (grassFloor, stoneFloor,stoneFloor2);
+  scene.add (floorGroup);
+  
+  floorGroup.rotation.x = -Math.PI/2;
+
+  
+  
+
+
+  
+  
+  window.addEventListener('resize', onWindowResize, false);
+  $('#container').on("pointerdown", onMouseDown);
+  $('#container').on("pointermove", onMouseMove);
+  $('#container').on("pointerup", onMouseUp);
+  thePuck = null;
+  
+  var ambLight = new THREE.AmbientLight(0x404040,3);
+  scene.add(ambLight);
+  
+    var directionalLight = new THREE.DirectionalLight(0xf5e4c4,0.5);
+  scene.add(directionalLight);
+  
+  checkbox.onclick = function () 
+{  
+    if(checkbox.checked==false)
+      {
+       scene.remove(directionalLight);
+
+      }else if(checkbox.checked==true)
+      {
+       scene.add(directionalLight);
+      }
+}
+  
+}
+
+
+
+function onWindowResize() 
+{
+  var ww = $('#container').innerWidth();
+  var hh = $('#container').innerHeight();
+  camera.aspect = ww / hh;
+  camera.updateProjectionMatrix();
+  renderer.setSize(ww, hh);
+}
+
+function onMouseDown(event)
+{
+  var viewportPos = $('#container').get(0).getBoundingClientRect();
+  mouse.x = ((event.clientX - viewportPos.left) / $('#container').innerWidth()) * 2 - 1;
+  mouse.y = -((event.clientY - viewportPos.top) / $('#container').innerHeight()) * 2 + 1;
+  
+
+  raycaster.setFromCamera(mouse, camera);
+  if (placing === true) 
+  { // place
+    
+    var intersects = raycaster.intersectObject(grassFloor);
+     var feetpos = raycaster.intersectObject(grassFloor);
+    if (intersects.length > 0) 
+    {
+     
+      var newPuck; 
+      var feet1,feet2,feet3,feet4;
+      
+      if(aTable === true)
+      {
+        newPuck = table_puck.clone(); 
+        intersects[0].point.y = 9;
+        newPuck.position.copy(intersects[0].point);
+        
+        pucksType.push(1);
+      }else if(aChair === true)
+      {
+        newPuck = chair_puck.clone(); 
+        pucksType.push(2);
+        intersects[0].point.y = 9;
+        newPuck.position.copy(intersects[0].point);
+      }
+
+      //intersects[0].point.y = 9;
+      
+      scene.add(newPuck);
+      pucks.push(newPuck);
+    }
+  } else if (moving === true)
+  { // move
+    var intersects = raycaster.intersectObjects(pucks);
+    if (intersects.length > 0) 
+    {
+      thePuck = intersects[0].object;
+    }
+  }else if (deleting === true)
+  { //delete 
+    var intersects = raycaster.intersectObjects(pucks);
+    if (intersects.length > 0) 
+    {
+      thePuck = intersects[0].object;
+
+      //scene.remove(thePuck);
+      thePuck.removeFromParent();
+
+      // remove thePuck from pucks
+      for (let i = 0; i < pucks.length; i++) 
+      {
+        if (pucks[i] === thePuck) 
+        {
+          pucks.splice(i, 1);
+          pucksType.splice(i, 1);
+          break;
+        }
+      }
+    }
+  }else
+    {
+      
+    }
+}
+
+function onMouseUp(event) 
+{
+  thePuck = null;
+  controls.enabled = true;
+}
+
+
+
+function onMouseMove(event) 
+{
+  event.preventDefault();
+  if (thePuck === null) return;
+  
+  var viewportPos = $('#container').get(0).getBoundingClientRect();
+  mouse.x = ((event.clientX - viewportPos.left) / $('#container').innerWidth()) * 2 - 1;
+  mouse.y = -((event.clientY - viewportPos.top) / $('#container').innerHeight()) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  var intersects = raycaster.intersectObject(grassFloor);
+   var feetpos = raycaster.intersectObject(grassFloor);
+  if (intersects.length > 0) {
+    controls.enabled = false;  // to disable camera movement
+    intersects[0].point.y = 9;
+    thePuck.position.copy(intersects[0].point);
+  }
+
+}
+
+
+
+   
+
+function animate() 
+{
+  requestAnimationFrame(animate);
+  render();
+
+  $('#debugMsg').text(pucks.length + ' pucks on plane');
+
+}
+
+function render() 
+{
+  renderer.render(scene, camera);
+}
+
+    </script> 
+      
+</html>
+

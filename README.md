@@ -41,6 +41,7 @@ HW3_GalaryFloorPlan：
 
 但總算對燈光熟悉一點。
 
+<<<<<<< HEAD
 
 
  <br><br>
@@ -71,3 +72,5 @@ HW4_PatioDesign：
 地面的材質多了一層走向露臺的路徑部分。
 
 
+=======
+>>>>>>> fe98f02466c4fdfd5e0bb423bcc3fa3e5cfacc84

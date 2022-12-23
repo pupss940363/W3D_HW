@@ -41,7 +41,7 @@ HW3_GalaryFloorPlan：
 
 但總算對燈光熟悉一點。
 
-<<<<<<< HEAD
+
 
 
  <br><br>

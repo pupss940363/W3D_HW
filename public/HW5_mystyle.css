@@ -1,0 +1,125 @@
+.header
+  {
+		width: 100%;
+		height: 10%;
+		line-height:60px;
+		background-color:  #dbd0c1;
+		position: relative;
+		text-align:center;
+		font-size:40px;
+		font-family:Consolas;
+		color:#6A6B83;
+	}
+  
+  #container 
+  {
+    width: 25vw;
+    height: 25vw;
+    float: left;
+    margin-left:30%;
+	margin-top:5%;
+  }
+
+  input[id="aTable"],[id="aChair"]
+  {
+  position: absolute;
+  z-index: 10;
+  outline: none;
+  }
+  
+
+
+  .furniture
+  {
+    padding-top:100px;
+  }
+  
+label {  
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  filter: grayscale(100%) opacity(50%);
+  transition: all .5s ease;
+}
+
+label:hover {
+  box-shadow: 0 0 15px #777;
+  border-radius: 30px;
+}
+
+
+input[type='range']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #6A6B83;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+input[type='checkbox']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #6A6B83;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+   
+  .option
+  {
+		width:30vw;
+    float:left;
+    padding-left:30px;
+    padding-top:10px;
+    padding-right:10px;
+    font-size:20px;
+		font-family:Consolas;
+		color:#6A6B83;
+	}
+  
+
+
+p 
+  {
+    text-align: justify;
+  }
+  
+  
+
+
+
+#clearing,#saving,#restoring 
+  {	
+    padding: 8px 8px;
+    font: 13px consolas;
+    font-size:20px;
+    text-decoration: none;
+    text-align: center;
+    margin: 2px;
+	  cursor: pointer;
+	
+	
+    color: #6A6B83;
+    background: #dbd0c1;
+    border-radius: 8px;
+    transition: .3s ease-in-out;
+    flex-direction: column;
+  }
+
+#clearing:hover,#saving:hover,#restoring:hover
+  {
+    border-radius: 40px;
+  }
+  
+
+  

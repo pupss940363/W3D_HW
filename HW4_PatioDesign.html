@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>HW4_Patio Design</title>
-	</head>
-
+	</head>  
+  
 <script src="https://threejs.org/build/three.min.js"></script>
-<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  
 
+  
 <style>
 
 
@@ -228,9 +229,11 @@ p
 
     
   </body>
-      
-<script>
-  
+
+  <script type="module">
+  import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136/examples/jsm/controls/OrbitControls.js';
+
+
 $('.gclass').click(function() 
   {
     if ($(this).val() === 'place')
@@ -273,6 +276,9 @@ $('.furniture').click(function()
 
 var scene, renderer, camera;
 var plane;
+var grassFloor 
+var stoneFloor
+var stoneFloor2
 var puck;
 var table_puck;
 var chair_puck;
@@ -434,7 +440,7 @@ function init()
   puck = new THREE.Mesh(cyl_geom, cyl_mat);
 
 
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+ controls = new OrbitControls(camera, renderer.domElement);
 
   //grid
   /*var gridXZ = new THREE.GridHelper(200, 20, 'red', 'white');

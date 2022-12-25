@@ -7,7 +7,7 @@
 <link rel='stylesheet' type='text/css' href="HW5_mystyle.css">
 
 </head>	
-<body>
+<body style="background-color:#e0e0e0;">
 <script src="https://threejs.org/build/three.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -198,7 +198,7 @@ if(check == 0){
   if (pos.x > 0)
     circle.material.color.set(0x6A6B83);
   else
-    circle.material.color.set(0xffce63);
+    circle.material.color.set(0xe0e0e0);
 
   circle.position.copy(pos);
 
